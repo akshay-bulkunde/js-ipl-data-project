@@ -1,58 +1,61 @@
 //Find a player who has won the highest number of Player of the Match awards for each season.
+const fs = require('fs');
+const matches = require('../../csvToJson/matches.json');
 
-const matches = require('../csvToJson/matches.json');
 
+function getTopPlayerOfTheMatchPerSeason(matches) {
+    let topPlayersPerSeason = {};
 
-function playerOfTheMatch(matches){
-    let POTM = {};
-    for(let match in matches){
+    
+    for (let match in matches) {
+        
         let season = matches[match]["season"];
-        let potm = matches[match]["player_of_match"];
 
-        // console.log(`${season} ${potm}`)
-        if(season === undefined || potm === undefined){
-            continue;
+        if (!topPlayersPerSeason.hasOwnProperty(season)) {
+            topPlayersPerSeason[season] = {};
         }
-        if(!POTM.hasOwnProperty(season)){
-            POTM[season] = {};
-            
-        }
-        if(!POTM[season].hasOwnProperty(potm)){
-            POTM[season][potm] = 1 ;
-            // console.log(POTM[season]);
-            // break;
 
-        }else{
-            POTM[season][potm] += 1;
-           
+        let player = matches[match]["player_of_match"];
+        if (!topPlayersPerSeason[season].hasOwnProperty(player)) {
+            topPlayersPerSeason[season][player] = 0;
         }
+
+        topPlayersPerSeason[season][player] += 1;
     }
-    // return POTM;
-    let highestPotmPerSeason ={};
-    for(let season in POTM){
-        let players = POTM[season];
+
+    let playerWithMostAwardsPerSeason = {};
+
+   
+    for (let season in topPlayersPerSeason) {
+        let players = topPlayersPerSeason[season];
+        let topPlayer = '';
         let maxTrophy = 0;
-        let maxPlayer = null;
-        for(let player in players){
-            // console.log(player);
-            // break;
-            // if(player === undefined){
-            //     return highestPotmPerSeason;
-            // }
-            if(players[player] > maxTrophy){
-                maxPlayer = player;
+
+        
+        for (let player in players) {
+            if (players[player] > maxTrophy) {
                 maxTrophy = players[player];
-
-
+                topPlayer = player;
             }
         }
-        // console.log(POTM[season]);
-        highestPotmPerSeason[season] = {
-            player : maxPlayer,
-            potm : maxTrophy
-        }
+
+        playerWithMostAwardsPerSeason[season] = { player: topPlayer, trophies: maxTrophy };
     }
-    return highestPotmPerSeason;
+
+    return playerWithMostAwardsPerSeason;
 }
-// playerOfTheMatch(matches)
-console.log(playerOfTheMatch(matches));
+
+
+let playerWithMostAwardsPerSeason = getTopPlayerOfTheMatchPerSeason(matches)
+
+
+try {
+    fs.writeFileSync('src/public/output/playerWithMostAwardsPerSeason.json', JSON.stringify(playerWithMostAwardsPerSeason, null, 2));
+    console.log("File parsed successfully");
+  }
+  catch (error) {
+    console.log("File parsing failed ", error);
+  }
+
+
+module.exports = { getTopPlayerOfTheMatchPerSeason }

@@ -1,6 +1,6 @@
 // Find the number of times each team won the toss and also won the match
-
-const matches = require('../csvToJson/matches.json');
+const fs = require('fs');
+const matches = require('../../csvToJson/matches.json');
 
 function wonTheTossWonTheMatch(matches){
     let teams = {};
@@ -23,4 +23,15 @@ function wonTheTossWonTheMatch(matches){
     return teams;
 }
 
-console.log(wonTheTossWonTheMatch(matches));
+let teams = wonTheTossWonTheMatch(matches);
+
+try {
+    fs.writeFileSync('src/public/output/wonTheTossWonTheMatch.json', JSON.stringify(teams, null, 2));
+    console.log("File parsed successfully");
+  }
+  catch (error) {
+    console.log("File parsing failed ", error);
+  }
+
+
+module.exports = { wonTheTossWonTheMatch }
