@@ -1,5 +1,6 @@
 // Number of matches played per year for all the years in IPL.
-const matchesData = require('../csvToJson/matches.json');
+const fs = require('fs');
+const matchesData = require('../../csvToJson/matches.json');
 
 function matchesPerYear(matchesData) {
     let matchesPerYear = {};
@@ -21,10 +22,10 @@ function matchesPerYear(matchesData) {
     return matchesPerYear
 }
 
-let matchesPerYear = matchesPerYear(matchesData);
+let matchesPerYearData = matchesPerYear(matchesData);
 
 try {
-    fs.writeFileSync('../public/output/matchesPerYear.json', JSON.stringify(matchesPerYear, null, 2));
+    fs.writeFileSync('../public/output/matchesPerYear.json', JSON.stringify(matchesPerYearData, null, 2));
     console.log("File parsed successfully");
 }
 catch (error) {
