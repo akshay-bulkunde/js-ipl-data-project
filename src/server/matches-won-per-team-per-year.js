@@ -1,6 +1,6 @@
 // Number of matches won per team per year in IPL.
 
-const matches = require("../csvToJson/matches.json");
+const matches = require("../../csvToJson/matches.json");
 
 function matchesWonPerTeam(matches) {
   let matchesWonPerYear = {};
