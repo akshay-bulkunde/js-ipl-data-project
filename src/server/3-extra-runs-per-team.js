@@ -1,7 +1,7 @@
 // Extra runs conceded per team in the year 2016
 const fs = require('fs');
-const matches = require("../../csvToJson/matches.json");
-const deliveries = require("../../csvToJson/deliveries.json");
+const matches = require("../data/jsonData/matches.json");
+const deliveries = require("../data/jsonData/deliveries.json");
 
 function getmatchesId(matches) {
   let matchID = [];
