@@ -1,7 +1,7 @@
 //Top 10 economical bowlers in the year 2015
 const fs = require('fs');
-const matches = require('../../csvToJson/matches.json');
-const deliveries = require('../../csvToJson/deliveries.json');
+const matches = require('../data/jsonData/matches.json');
+const deliveries = require('../data/jsonData/deliveries.json');
 
 
 function getMatchId(matches) {
@@ -59,7 +59,7 @@ getTopEconomicalBowlers(deliveries, matchIds)
 let topEconomicalBowlers = getTopEconomicalBowlers(deliveries, matchIds);
 
 try {
-    fs.writeFileSync('src/public/output/economicalBowlers.json', JSON.stringify(topEconomicalBowlers, null, 2));
+    fs.writeFileSync('../public/output/economicalBowlers.json', JSON.stringify(topEconomicalBowlers, null, 2));
     console.log("File parsed successfully");
   }
   catch (error) {

@@ -1,6 +1,6 @@
 //Find a player who has won the highest number of Player of the Match awards for each season.
 const fs = require('fs');
-const matches = require('../../csvToJson/matches.json');
+const matches = require('../data/jsonData/matches.json');
 
 
 function getTopPlayerOfTheMatchPerSeason(matches) {
@@ -50,7 +50,7 @@ let playerWithMostAwardsPerSeason = getTopPlayerOfTheMatchPerSeason(matches)
 
 
 try {
-    fs.writeFileSync('src/public/output/playerWithMostAwardsPerSeason.json', JSON.stringify(playerWithMostAwardsPerSeason, null, 2));
+    fs.writeFileSync('../public/output/playerWithMostAwardsPerSeason.json', JSON.stringify(playerWithMostAwardsPerSeason, null, 2));
     console.log("File parsed successfully");
   }
   catch (error) {

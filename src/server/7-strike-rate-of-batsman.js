@@ -1,6 +1,6 @@
 const fs = require('fs');
-const deliveries = require('../../csvToJson/deliveries.json');
-const matches = require('../../csvToJson/matches.json');
+const deliveries = require('../data/jsonData/deliveries.json');
+const matches = require('../data/jsonData/matches.json');
 
 function getBatsmanStrikeRatePerSeason(matches, deliveries) {
     let matchSeasonMap = {};
@@ -52,7 +52,7 @@ function getBatsmanStrikeRatePerSeason(matches, deliveries) {
 let batsmanStrikeRate = getBatsmanStrikeRatePerSeason(matches, deliveries)
 
 try {
-    fs.writeFileSync('src/public/output/batsmanStrikeRatePerSeason.json', JSON.stringify(batsmanStrikeRate, null, 2));
+    fs.writeFileSync('../public/output/batsmanStrikeRatePerSeason.json', JSON.stringify(batsmanStrikeRate, null, 2));
     console.log("File parsed successfully");
 }
 catch (error) {

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const deliveries = require('../../csvToJson/deliveries.json');
+const deliveries = require('../data/jsonData/deliveries.json');
 
 function findBestSuperOverBowler(deliveries) {
     let bowlerStats = deliveries.reduce((acc, delivery) => {
@@ -35,7 +35,7 @@ function findBestSuperOverBowler(deliveries) {
 let bestSuperOverBowler = findBestSuperOverBowler(deliveries);
 
 try {
-    fs.writeFileSync('src/public/output/bestSuperOverBowler.json', JSON.stringify(bestSuperOverBowler , null, 2));
+    fs.writeFileSync('../public/output/bestSuperOverBowler.json', JSON.stringify(bestSuperOverBowler , null, 2));
     console.log("File parsed successfully");
 }
 catch (error) {

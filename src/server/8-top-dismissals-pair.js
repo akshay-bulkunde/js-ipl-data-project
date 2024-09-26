@@ -1,5 +1,5 @@
 const fs = require('fs');
-const deliveries = require('../../csvToJson/deliveries.json');
+const deliveries = require('../data/jsonData/deliveries.json');
 
 function findMostDismissedPlayerByBowler(deliveries) {
     let bowlerStats = {};
@@ -45,7 +45,7 @@ function findMostDismissedPlayerByBowler(deliveries) {
 const highestDismissals = findMostDismissedPlayerByBowler(deliveries);
 
 try {
-    fs.writeFileSync('src/public/output/topDismissalPair.json', JSON.stringify(highestDismissals, null, 2));
+    fs.writeFileSync('../public/output/topDismissalPair.json', JSON.stringify(highestDismissals, null, 2));
     console.log("File parsed successfully");
 }
 catch (error) {
